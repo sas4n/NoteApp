@@ -11,14 +11,16 @@ from rest_framework.decorators import APIView
 from rest_framework.viewsets import ModelViewSet
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 # Create your views here.
 
 class NoteViewSet(ModelViewSet):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
-     permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
-class UserViewSet(ModelViewSet):
+class AuthViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
