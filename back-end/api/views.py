@@ -1,7 +1,7 @@
 
 from django.shortcuts import render,HttpResponse 
 from .models import Note
-from .serializer import NoteSerializer
+from .serializer import NoteSerializer, UserSerializer
 from django.http import JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
@@ -9,11 +9,20 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import APIView
 from rest_framework.viewsets import ModelViewSet
+from django.contrib.auth.models import User
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 class NoteViewSet(ModelViewSet):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
+     permission_classes = [IsAuthenticated]
+
+class UserViewSet(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
 
 '''
 class NotesListView(APIView):
